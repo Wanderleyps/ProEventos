@@ -1,19 +1,24 @@
 <h2>Eventos</h2>
 <hr>
-
-<form action="" class="form-inline">
+<div class="form-inline">
   <div class="form-group mb-2">
-      <input type="text" class="form-control mr-2" placeholder="buscar">
-      <button class="btn-outline-success">Buscar</button>
+    <label class="mr-2">Filtro: </label>
+    <input
+    type="text"
+    class="form-control mr-2"
+    placeholder="buscar"
+    [(ngModel)]="filtroLista"
+    >
   </div>
-</form>
+</div>
+<!-- <h3>Filtro: {{filtroLista}}</h3> -->
 <table class="table table-striped">
   <thead class="thead-dark">
     <tr>
       <th>
         <button type="button" class="btn btn-outline-light btn-sm"
         (click)="alterarImagem()">
-          {{ !exibirImagem ? 'exibir' : 'ocultar' }}
+          {{!exibirImagem ? 'exibir' : 'ocultar'}}
         </button>
       </th>
       <th>#</th>
@@ -26,30 +31,34 @@
     </tr>
   </thead>
   <tbody *ngIf="eventos && eventos.length">
-    <tr *ngFor="let evento of eventos">
+    <tr *ngFor="let evento of eventosFiltrados">
       <td>
-        <img
-          [collapse]="!exibirImagem"
-          [isAnimated]="true"
-          src="/assets/{{ evento.imagemURL }}"
+        <img [collapse]="!exibirImagem"
+             [isAnimated]="true"
+          src="/assets/{{evento.imagemURL}}"
           [style.width.px]="larguraImagem"
           [style.margin.px]="margemImagem"
         >
       </td>
-      <td>{{ evento.id }}</td>
-      <td>{{ evento.tema }}</td>
-      <td>{{ evento.local }}</td>
-      <td>{{ evento.data }}</td>
-      <td>{{ evento.qtdPessoas }}</td>
-      <td>{{ evento.local }}</td>
-      <td></td>
+      <td>{{evento.id}}</td>
+      <td>{{evento.tema}}</td>
+      <td>{{evento.local}}</td>
+      <td>{{evento.dataEvento}}</td>
+      <td>{{evento.qtdPessoas}}</td>
+      <td>{{evento.lote}}</td>
+      <td>
+        <button type="button" class="btn btn-primary btn-sm mr-2">Editar</button>
+        <button type="button" class="btn btn-danger btn-sm">Excluir</button>
+      </td>
     </tr>
   </tbody>
   <tfoot *ngIf="!eventos.length">
     <tr>
       <td colspan="8" class="text-center">
-        Nenhum evento encontrado!
+        <h4>Nenhum evento encontrado!</h4>
       </td>
     </tr>
   </tfoot>
 </table>
+
+<!-- {{eventos | json}} -->
